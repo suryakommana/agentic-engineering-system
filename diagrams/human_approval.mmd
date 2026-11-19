@@ -1,0 +1,10 @@
+flowchart TD
+ A[Agent-generated changes] --> B[Automated validation]
+ B --> C{Critical gate passed?}
+ C -->|No| D[Block and recover / escalate]
+ C -->|Yes| E[Review diff, tests and risks]
+ E --> F{Human decision}
+ F -->|Approve| G[Eligible for PR merge]
+ F -->|Request changes| H[Create revision tasks]
+ F -->|Reject| I[Stop and retain audit]
+ H --> A

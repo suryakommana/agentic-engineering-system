@@ -1,0 +1,16 @@
+stateDiagram-v2
+ [*] --> PENDING
+ PENDING --> READY: dependencies complete
+ READY --> RUNNING
+ RUNNING --> COMPLETED: task succeeds
+ RUNNING --> FAILED: exception / timeout / invalid output
+ FAILED --> RETRYING: retry budget remains
+ RETRYING --> RUNNING: attach error context
+ FAILED --> ESCALATED: retry budget exhausted
+ COMPLETED --> VALIDATION
+ VALIDATION --> RECOVERY: validation fails
+ RECOVERY --> READY: targeted task reopened
+ VALIDATION --> REVIEW: all gates pass
+ REVIEW --> NEEDS_APPROVAL
+ NEEDS_APPROVAL --> APPROVED: human approves
+ NEEDS_APPROVAL --> REJECTED: human rejects

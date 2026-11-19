@@ -1,0 +1,16 @@
+.
+!.dockerignore
+!Dockerfile
+!requirements.txt
+!pyproject.toml
+!README.md
+!platform_api/
+!url_shortener/
+!diagrams/
+!artifacts/
+platform_api/**/__pycache__
+url_shortener/**/__pycache__
+**/*.db
+**/.env
+**/.venv
+**/.pytest_cache

@@ -1,0 +1,13 @@
+flowchart TD
+ R[Enhancement or bug fix] --> SCAN[Repository scan]
+ SCAN --> MAP[Module, API and dependency map]
+ MAP --> IMPACT[Impacted component analysis]
+ IMPACT --> PLAN[Minimal-change task DAG]
+ PLAN --> PATCH[Generate isolated patch / branch]
+ PATCH --> REG[Existing regression tests]
+ REG --> NEW[New targeted tests]
+ NEW --> DIFF[Diff and compatibility review]
+ DIFF --> G{All gates pass?}
+ G -->|No| FIX[Targeted fix or escalation]
+ FIX --> PATCH
+ G -->|Yes| HUMAN[Human review and merge approval]
