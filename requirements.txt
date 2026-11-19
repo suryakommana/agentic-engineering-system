@@ -1,0 +1,4 @@
+# Runtime dependencies. For development use: pip install -e ".[dev]"
+fastapi>=0.110,<1
+uvicorn[standard]>=0.27
+pydantic>=2.6

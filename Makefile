@@ -1,0 +1,1 @@
+.PHONY: install test lint run-platform run-shortener compose-up\n\ninstall:\n	python -m pip install -e ".[dev]"\n\ntest:\n	pytest -q\n\nlint:\n	ruff check .\n\n\nrun-platform:\n	uvicorn platform_api.main:app --reload --port 8000\n\nrun-shortener:\n	uvicorn url_shortener.main:app --reload --port 8001\n\ncompose-up:\n	docker compose up --build\n

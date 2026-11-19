@@ -1,0 +1,23 @@
+flowchart TB
+ H[Human Engineer] --> UI[API / Dashboard]
+ UI --> O[Workflow Orchestrator]
+ O --> S[(Workflow State)]
+ O --> R[Requirement Agent]
+ O --> REPO[Repository Agent]
+ R --> A[Architect Agent]
+ REPO --> A
+ A --> P[Task Planner]
+ P --> DAG[DAG Scheduler]
+ DAG --> API[API Agent]
+ DAG --> DB[Database Agent]
+ DAG --> TEST[Test Design Agent]
+ API --> I[Integration Workspace]
+ DB --> I
+ TEST --> I
+ I --> V[Validation Engine]
+ V -->|Fail| REC[Recovery Agent]
+ REC --> DAG
+ V -->|Pass| REV[Review Agent]
+ REV --> H
+ H -->|Approved| G[Git PR / Reviewable Changes]
+ G --> ART[(Artifact Store)]

@@ -1,0 +1,15 @@
+flowchart LR
+ C[Client] --> EDGE[CloudFront / WAF]
+ EDGE --> GW[API Gateway]
+ GW --> API[URL Management API]
+ C -->|GET /code| REDIR[Redirect Service]
+ REDIR --> CACHE[(Redis Cache)]
+ CACHE -->|Miss| DB[(URL Database)]
+ API --> DB
+ REDIR --> Q[SQS / Event Queue]
+ Q --> W[Analytics Consumer]
+ W --> AGG[(Analytics Store)]
+ GW --> AUTH[OIDC / Cognito]
+ OBS[CloudWatch / OpenTelemetry] --- API
+ OBS --- REDIR
+ OBS --- W

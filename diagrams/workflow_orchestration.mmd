@@ -1,0 +1,33 @@
+flowchart TD
+ R[Requirement submitted] --> N[Normalize and classify]
+ N --> Q{Ambiguous?}
+ Q -->|Yes| C[Clarification questions]
+ C --> H[Human supplies answers]
+ H --> N
+ Q -->|No| B{Brownfield?}
+ B -->|Yes| S[Repository scan and impact analysis]
+ B -->|No| A[Solution architecture]
+ S --> A
+ A --> P[Create task DAG]
+ P --> T1[API contract]
+ P --> T2[Data model]
+ P --> T3[Test design]
+ T1 --> T4[API implementation]
+ T2 --> T4
+ T1 --> T5[Analytics implementation]
+ T2 --> T5
+ T1 --> T6[Documentation]
+ T2 --> T6
+ T3 --> T6
+ T4 --> V[Validation]
+ T5 --> V
+ T6 --> V
+ V -->|Fail| F[Diagnose failure]
+ F --> X{Retry budget?}
+ X -->|Yes| FIX[Targeted remediation]
+ FIX --> V
+ X -->|No| ESC[Human escalation]
+ V -->|Pass| REV[Engineering review]
+ REV --> AP[Human approval]
+ AP -->|Approve| PR[Reviewable PR]
+ AP -->|Reject| P

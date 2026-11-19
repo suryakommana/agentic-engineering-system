@@ -1,0 +1,26 @@
+services:
+  agentic-platform:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["uvicorn", "platform_api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  url-shortener:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["uvicorn", "url_shortener.main:app", "--host", "0.0.0.0", "--port", "8001"]
+    ports:
+      - "8001:8001"
+    environment:
+      SHORTENER_PUBLIC_BASE_URL: ${SHORTENER_PUBLIC_BASE_URL:-http://localhost:8001}
+      SHORTENER_DB_PATH: /app/url_shortener_data/shortener.db
+    volumes:
+      - shortener-data:/app/url_shortener_data
+    restart: unless-stopped
+
+volumes:
+  shortener-data:
